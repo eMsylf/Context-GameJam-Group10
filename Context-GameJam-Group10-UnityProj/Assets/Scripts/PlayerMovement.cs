@@ -1,0 +1,74 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class PlayerMovement : MonoBehaviour {
+
+    public float speed = 10.0f;
+    private float runSpeedMultiplier = 1.0f;
+    private float diagonalSpeedMultiplier = 1.0f;
+    private float dashSpeedMultiplier = 1.0f;
+
+    float moveHorizontal;
+    float moveVertical;
+
+    private Rigidbody rb;
+
+    private PositionReset PositionReset;
+
+    private KeyCode PositionResetButton;
+    public Vector3 resetCoordinates = new Vector3(0, 0, 0);
+
+    private TrailRenderer ChildTrail;
+    private ParticleSystem ChildParticles;
+
+    private void Awake() {
+        ChildTrail = gameObject.GetComponentInChildren<TrailRenderer>();
+        ChildParticles = ChildTrail.GetComponentInChildren<ParticleSystem>();
+    }
+
+    void Start() {
+        PositionReset = gameObject.GetComponent<PositionReset>();
+        PositionResetButton = PositionReset.ResetButton;
+
+        
+
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate() {
+        moveHorizontal = Input.GetAxis("Horizontal");
+        moveVertical = Input.GetAxis("Vertical");
+        if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0) {
+            diagonalSpeedMultiplier = 1.0f;
+        } else diagonalSpeedMultiplier = 1.4f;
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            runSpeedMultiplier = 2;
+
+            ChildTrail.emitting = true;
+            ChildParticles.Play();
+
+            //gameObject.transform.GetChild(0).gameObject.SetActive(true);
+
+        } else {
+            runSpeedMultiplier = 1;
+
+            ChildTrail.emitting = false;
+            ChildParticles.Stop();
+            
+            //gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+        rb.AddForce(movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * dashSpeedMultiplier);
+
+        ResetPosition();
+
+        
+    }
+
+    public void ResetPosition() {
+        if (Input.GetKeyDown(PositionResetButton)) gameObject.transform.position = resetCoordinates;
+    }
+}
