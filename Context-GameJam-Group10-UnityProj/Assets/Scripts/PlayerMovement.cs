@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public float speed = 10.0f;
     private float runSpeedMultiplier = 1.0f;
+    public float runSpeedMultiplierHigh = 2.0f;
     private float diagonalSpeedMultiplier = 1.0f;
     private float dashSpeedMultiplier = 1.0f;
 
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private TrailRenderer ChildTrail;
     private ParticleSystem ChildParticles;
+
+    public ForceMode ForceModePlayer;
 
     private void Awake() {
         ChildTrail = gameObject.GetComponentInChildren<TrailRenderer>();
@@ -45,7 +48,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         if (Input.GetKey(KeyCode.LeftShift)) {
-            runSpeedMultiplier = 2;
+            runSpeedMultiplier = runSpeedMultiplierHigh;
 
             ChildTrail.emitting = true;
             ChildParticles.Play();
@@ -61,7 +64,9 @@ public class PlayerMovement : MonoBehaviour {
             //gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
 
-        rb.AddForce(movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * dashSpeedMultiplier);
+        //rb.AddForce(movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * dashSpeedMultiplier, ForceModePlayer);
+
+        rb.position += (movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * dashSpeedMultiplier);
 
         ResetPosition();
 
