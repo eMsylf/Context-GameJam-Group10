@@ -14,12 +14,15 @@ public class TypeWriterEffect : MonoBehaviour
 
     private Text m_label;
 
+    public KeyCode StartTextKey;
     public KeyCode TextSkipKey;
 
     private int fontSizeStandard = 62;
 
     private TypeWriterSound TypeWriterSound;
     private AudioSource TypeWriterSFX;
+
+    private bool textIsPlaying = false;
 
     private void Awake() {
         m_label = GetComponent<Text>();
@@ -45,19 +48,36 @@ public class TypeWriterEffect : MonoBehaviour
         }
         m_label.text = m_partialText;
 
-        if (Input.GetKeyDown(TextSkipKey)) {
-            m_characterInterval = 0;
-        } else m_characterInterval = .05f;
-
         if (m_text.Length == m_partialText.Length) {
             TypeWriterSound.PauseSound();
         }
-        
+
+        SkipText();
+        StartText();
     }
 
     void ScaleFontSize() {
         if (m_text.Length > 30) {
             m_label.fontSize = fontSizeStandard / 2;
         }
+    }
+
+    void StartText() {
+        if (Input.GetKeyDown(StartTextKey)) {
+            if (textIsPlaying == false) {
+                Debug.Log("Start text");
+                textIsPlaying = true;
+            }
+            else {
+                Debug.Log("Text is already playing");
+            }
+        }
+    }
+
+    void SkipText() {
+        if (Input.GetKeyDown(TextSkipKey)) {
+            m_characterInterval = 0;
+            textIsPlaying = false;
+        } else m_characterInterval = .05f;
     }
 }

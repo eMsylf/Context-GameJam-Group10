@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour {
     private float diagonalSpeedMultiplier = 1.0f;
     private float dashSpeedMultiplier = 1.0f;
 
+    private GameObject PlayerSpriteAnimatorObject;
+    private Animator PlayerSpriteAnimator;
+
     float moveHorizontal;
     float moveVertical;
 
@@ -24,9 +27,13 @@ public class PlayerMovement : MonoBehaviour {
 
     public ForceMode ForceModePlayer;
 
+    private bool isMoving = false;
+
     private void Awake() {
         ChildTrail = gameObject.GetComponentInChildren<TrailRenderer>();
         ChildParticles = ChildTrail.GetComponentInChildren<ParticleSystem>();
+        PlayerSpriteAnimatorObject = gameObject.GetComponentInChildren<PlayerSprite>().gameObject;
+        PlayerSpriteAnimator = PlayerSpriteAnimatorObject.GetComponent<Animator>();
     }
 
     void Start() {
@@ -47,7 +54,9 @@ public class PlayerMovement : MonoBehaviour {
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        if (Input.GetKey(KeyCode.LeftShift)) {
+        isMoving = Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0;
+
+        if (Input.GetKey(KeyCode.LeftShift) && isMoving) {
             runSpeedMultiplier = runSpeedMultiplierHigh;
 
             ChildTrail.emitting = true;
@@ -70,7 +79,7 @@ public class PlayerMovement : MonoBehaviour {
 
         ResetPosition();
 
-        
+        PlayerSpriteAnimator.SetBool("IsMoving", isMoving);
     }
 
     public void ResetPosition() {
