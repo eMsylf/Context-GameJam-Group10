@@ -6,7 +6,6 @@ public class DialogueManager : MonoBehaviour
 {
     private Queue<string> sentences;
 
-    
     void Start()
     {
         sentences = new Queue<string>();

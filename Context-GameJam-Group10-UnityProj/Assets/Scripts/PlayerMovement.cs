@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour {
     public ForceMode ForceModePlayer;
 
     private bool isMoving = false;
+    private bool movingUp = false;
+    private bool movingDown = false;
+    private bool movingLeft = false;
+    private bool movingRight  = false;
 
     private void Awake() {
         ChildTrail = gameObject.GetComponentInChildren<TrailRenderer>();
@@ -78,11 +82,38 @@ public class PlayerMovement : MonoBehaviour {
         rb.position += (movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * dashSpeedMultiplier);
 
         ResetPosition();
+        DetermineDirection();
+        PlayerSpriteAnimator.SetBool("MovingUp", movingUp);
+        PlayerSpriteAnimator.SetBool("MovingDown", movingDown);
+        PlayerSpriteAnimator.SetBool("MovingLeft", movingLeft);
+        PlayerSpriteAnimator.SetBool("MovingRight", movingRight);
 
-        PlayerSpriteAnimator.SetBool("IsMoving", isMoving);
+        //PlayerSpriteAnimator.SetBool("IsMoving", isMoving);
     }
 
     public void ResetPosition() {
         if (Input.GetKeyDown(PositionResetButton)) gameObject.transform.position = resetCoordinates;
+    }
+
+    private void DetermineDirection() {
+        if (Input.GetAxis("Vertical") > 0) {
+            movingUp = true;
+            
+        } else movingUp = false;
+
+        if (Input.GetAxis("Vertical") < 0) {
+            movingDown = true;
+            
+        } else movingDown = false;
+
+        if (Input.GetAxis("Horizontal") < 0) {
+            movingLeft = true;
+            
+        } else movingLeft = false;
+
+        if (Input.GetAxis("Horizontal") > 0) {
+            movingRight = true;
+            
+        } else movingRight = false;
     }
 }
