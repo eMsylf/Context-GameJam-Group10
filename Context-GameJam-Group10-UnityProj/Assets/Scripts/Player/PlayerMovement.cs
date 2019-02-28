@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool movingUp = false;
     private bool movingDown = false;
     private bool movingLeft = false;
-    private bool movingRight  = false;
+    private bool movingRight = false;
 
     private void Awake() {
         ChildTrail = gameObject.GetComponentInChildren<TrailRenderer>();
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour {
         PositionReset = gameObject.GetComponent<PositionReset>();
         PositionResetButton = PositionReset.ResetButton;
 
-        
+
 
         rb = GetComponent<Rigidbody>();
     }
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour {
 
             ChildTrail.emitting = false;
             ChildParticles.Stop();
-            
+
             //gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
 
@@ -98,22 +98,22 @@ public class PlayerMovement : MonoBehaviour {
     private void DetermineDirection() {
         if (Input.GetAxis("Vertical") > 0) {
             movingUp = true;
-            
+
         } else movingUp = false;
 
         if (Input.GetAxis("Vertical") < 0) {
             movingDown = true;
-            
+
         } else movingDown = false;
 
         if (Input.GetAxis("Horizontal") < 0) {
             movingLeft = true;
-            
+
         } else movingLeft = false;
 
         if (Input.GetAxis("Horizontal") > 0) {
             movingRight = true;
-            
+
         } else movingRight = false;
     }
 }

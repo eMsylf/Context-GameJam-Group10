@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManagementScript : MonoBehaviour
-{
+public class SceneManagementScript : MonoBehaviour {
     public AudioSource StartGameSound;
     public AudioSource Music;
 
@@ -18,7 +17,7 @@ public class SceneManagementScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public IEnumerator enumerator () {
+    public IEnumerator enumerator() {
         yield return new WaitForSeconds(2.5f);
         NextScene();
     }
