@@ -3,7 +3,7 @@
 using UnityEngine;
 
 public class InteractionScript : MonoBehaviour {
-    private bool v_isColliding = false;
+    private bool isColliding = false;
     private GameObject collidingObject;
     public GameObject DialogueUI;
 
@@ -12,47 +12,37 @@ public class InteractionScript : MonoBehaviour {
             return;
         }
         collidingObject = collision.gameObject;
-        isColliding(true);
+        IsColliding(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.gameObject.GetComponent<Interactable>() == null) {
             return;
-        }
-        isColliding(false);
+        }//is het netjes om hier een else {} te gebruiken?
+        IsColliding(false);
 
-        collidingObject = null;
+        collidingObject = collision.gameObject;
     }
 
-    public bool isColliding(bool m_isColliding) {
-        collidingObject.GetComponent<SpriteRenderer>().enabled = !m_isColliding;
+    public bool IsColliding(bool t_isColliding) { //wat is er met de naming convention m_Variable? waarom m_?
+        collidingObject.GetComponent<SpriteRenderer>().enabled = !t_isColliding;
 
-        Debug.Log(collidingObject.name + " " + m_isColliding);
+        Debug.Log(name + " is colliding with " + collidingObject.name + " " + t_isColliding);
         if (DialogueUI == null) {
             return true;
         }
-        DialogueUI.SetActive(m_isColliding);
-        v_isColliding = m_isColliding;
-        return m_isColliding;
+        DialogueUI.SetActive(t_isColliding);
+        isColliding = t_isColliding;
+        return t_isColliding;
     }
 
-    //private void CollidingWithObject(bool m_isColliding) {
-    //    collidingObject.GetComponent<SpriteRenderer>().enabled = !m_isColliding;
-        
-    //    Debug.Log(collidingObject.name + " " + m_isColliding);
-    //    if (DialogueUI == null) {
-    //        return;
-    //    }
-    //    DialogueUI.SetActive(true);
-    //}
-
     private void InteractWithObject() {
-        Debug.Log("I am trying to interact with " + collidingObject.name);
+        Debug.Log(name + "I am trying to interact with " + collidingObject.name);
     }
 
     void Update() {
-        Debug.Log("Player is colliding: " + v_isColliding);
-        if (v_isColliding && Input.GetKeyDown(KeyCode.Space)) {
+        //Debug.Log("Player is colliding: " + isColliding);
+        if (isColliding && Input.GetKeyDown(KeyCode.Space)) {
             InteractWithObject();
         }
     }
