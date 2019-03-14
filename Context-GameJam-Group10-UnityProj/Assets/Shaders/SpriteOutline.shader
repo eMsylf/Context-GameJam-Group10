@@ -7,9 +7,11 @@ Shader "Custom/SpriteOutline" {
 		_Color("Color", Color) = (1, 1, 1, 1)
 	}
 
-	SubShader{
-		Cull Off
-		Blend One OneMinusSrcAlpha
+		SubShader{
+			Cull Off
+			Blend One OneMinusSrcAlpha
+			
+		//Tags { "Queue" = "Geometry" }
 
 		Pass{
 			CGPROGRAM
@@ -34,21 +36,24 @@ Shader "Custom/SpriteOutline" {
 			fixed4 _Color;
 			float4 _MainTex_TexelSize;
 
-			fixed4 fragmentFunc(v2f i) : COLOR{
+			fixed4 fragmentFunc(v2f i) : COLOR {
 				half4 c = tex2D(_MainTex, i.uv);
 				c.rgb *= c.a;
 				half4 outlineC = _Color;
 				outlineC.a *= ceil(c.a);
 				outlineC.rgb *= outlineC.a;
 
-				fixed upAlpha = tex2D(_MainTex, i.uv + fixed2(0, _MainTex_TexelSize.y));
-				fixed downAlpha = tex2D(_MainTex, i.uv - fixed2(0, _MainTex_TexelSize.y));
-				fixed rightAlpha = tex2D(_MainTex, i.uv + fixed2(_MainTex_TexelSize.x, 0));
-				fixed leftAlpha = tex2D(_MainTex, i.uv - fixed2(_MainTex_TexelSize.x, 0));
+				fixed upAlpha = tex2D(_MainTex, i.uv + fixed2(0, _MainTex_TexelSize.y)).a;
+				fixed downAlpha = tex2D(_MainTex, i.uv - fixed2(0, _MainTex_TexelSize.y)).a;
+				fixed rightAlpha = tex2D(_MainTex, i.uv + fixed2(_MainTex_TexelSize.x, 0)).a;
+				fixed leftAlpha = tex2D(_MainTex, i.uv - fixed2(_MainTex_TexelSize.x, 0)).a;
 
 				return lerp(outlineC, c, ceil(upAlpha * downAlpha * rightAlpha * leftAlpha));
 			}
-			ENDCG
+				ENDCG
+
+
 		}
 	}
+			Fallback "Sprites/Default"
 }
