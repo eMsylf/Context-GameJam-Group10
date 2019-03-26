@@ -7,16 +7,21 @@ public class InteractionScript : MonoBehaviour {
     private GameObject collidingObject;
     public GameObject DialogueUI;
 
+    private Inventory Inventory;
+
+    public bool useUIForTesting;
+
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.GetComponent<Interactable>() == null) {
+        if (collision.gameObject.GetComponent<IInteractable>() == null) {
             return;
         }
         collidingObject = collision.gameObject;
         IsColliding(true);
+        AddToInventory(collidingObject.GetComponent<IInteractable>());
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.gameObject.GetComponent<Interactable>() == null) {
+        if (collision.gameObject.GetComponent<IInteractable>() == null) {
             return;
         }//is het netjes om hier een else {} te gebruiken?
         IsColliding(false);
@@ -28,7 +33,7 @@ public class InteractionScript : MonoBehaviour {
         collidingObject.GetComponent<SpriteRenderer>().enabled = !t_isColliding;
 
         Debug.Log(name + " is colliding with " + collidingObject.name + " " + t_isColliding);
-        if (DialogueUI == null) {
+        if (DialogueUI == null || !useUIForTesting) {
             return true;
         }
         DialogueUI.SetActive(t_isColliding);
@@ -37,13 +42,19 @@ public class InteractionScript : MonoBehaviour {
     }
 
     private void InteractWithObject() {
-        Debug.Log(name + "I am trying to interact with " + collidingObject.name);
+        Debug.Log(name + ": I am trying to interact with " + collidingObject.name);
+    }
+
+    private void AddToInventory(IInteractable m_item) {
+        //Inventory.Interactables.Add(m_item);
+        Debug.Log("Adding item: " + m_item.name);
     }
 
     void Update() {
         //Debug.Log("Player is colliding: " + isColliding);
         if (isColliding && Input.GetKeyDown(KeyCode.Space)) {
             InteractWithObject();
+            //AddToInventory();
         }
     }
 }

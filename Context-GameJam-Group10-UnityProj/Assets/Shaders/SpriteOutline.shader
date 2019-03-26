@@ -5,14 +5,13 @@ Shader "Custom/SpriteOutline" {
 	Properties{
 		_MainTex("Texture", 2D) = "white" {}
 		_Color("Color", Color) = (1, 1, 1, 1)
+		_Thickness("Thickness", int) = 1
 	}
 
-		SubShader{
-			Cull Off
-			Blend One OneMinusSrcAlpha
+	SubShader{
+		Cull Off
+		Blend One OneMinusSrcAlpha
 			
-		//Tags { "Queue" = "Geometry" }
-
 		Pass{
 			CGPROGRAM
 			#pragma vertex vertexFunc
@@ -55,5 +54,5 @@ Shader "Custom/SpriteOutline" {
 
 		}
 	}
-			Fallback "Sprites/Default"
+	Fallback "Sprites/Default"
 }
