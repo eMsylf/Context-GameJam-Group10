@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour {
     float moveHorizontal;
     float moveVertical;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     private PositionReset PositionReset;
 
@@ -33,20 +33,21 @@ public class PlayerMovement : MonoBehaviour {
     private bool movingLeft = false;
     private bool movingRight = false;
 
+    public float jumpForce = 1f;
+    private bool isStanding = false;
+
     private void Awake() {
-        ChildTrail = gameObject.GetComponentInChildren<TrailRenderer>();
-        ChildParticles = ChildTrail.GetComponentInChildren<ParticleSystem>();
-        PlayerSpriteAnimatorObject = gameObject.GetComponentInChildren<PlayerSprite>().gameObject;
-        PlayerSpriteAnimator = PlayerSpriteAnimatorObject.GetComponent<Animator>();
+        //ChildTrail = gameObject.GetComponentInChildren<TrailRenderer>();
+        ChildParticles = GetComponentInChildren<ParticleSystem>();
+        //PlayerSpriteAnimatorObject = gameObject.GetComponentInChildren<PlayerSprite>().gameObject;
+        //PlayerSpriteAnimator = PlayerSpriteAnimatorObject.GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Start() {
         PositionReset = gameObject.GetComponent<PositionReset>();
         PositionResetButton = PositionReset.ResetButton;
 
-
-
-        rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate() {
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftShift) && isMoving) {
             runSpeedMultiplier = runSpeedMultiplierHigh;
 
-            ChildTrail.emitting = true;
+            //ChildTrail.emitting = true;
             ChildParticles.Play();
 
             //gameObject.transform.GetChild(0).gameObject.SetActive(true);
@@ -71,24 +72,29 @@ public class PlayerMovement : MonoBehaviour {
         } else {
             runSpeedMultiplier = 1;
 
-            ChildTrail.emitting = false;
+            //ChildTrail.emitting = false;
             ChildParticles.Stop();
 
             //gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && isStanding) {
+            Jump();
+        }
+
         //rb.AddForce(movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * dashSpeedMultiplier, ForceModePlayer);
 
-        rb.position += (movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * dashSpeedMultiplier);
-
+        rb.position += (movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * Time.deltaTime);
         ResetPosition();
+        /*
         DetermineDirection();
         PlayerSpriteAnimator.SetBool("MovingUp", movingUp);
         PlayerSpriteAnimator.SetBool("MovingDown", movingDown);
         PlayerSpriteAnimator.SetBool("MovingLeft", movingLeft);
         PlayerSpriteAnimator.SetBool("MovingRight", movingRight);
-
-        //PlayerSpriteAnimator.SetBool("IsMoving", isMoving);
+        
+        PlayerSpriteAnimator.SetBool("IsMoving", isMoving);
+        */
     }
 
     public void ResetPosition() {
@@ -115,5 +121,25 @@ public class PlayerMovement : MonoBehaviour {
             movingRight = true;
 
         } else movingRight = false;
+    }
+
+    private void Jump() {
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Force);
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.name == "polySurface4") {
+            isStanding = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision) {
+        if (collision.gameObject.name == "polySurface4") {
+            isStanding = false;
+        }
+    }
+
+    private void IsStanding() {
+
     }
 }
