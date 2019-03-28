@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScreen.unity
     guid: aee239dad69b6c940b53bf1015652918
   - enabled: 1
-    path: Assets/Scenes/Overworld.unity
-    guid: 6247310bee2aa1e4797303fc6e138cf5
+    path: Assets/Scenes/Help2.unity
+    guid: 580d203e64265bb43815d16363ad6b98
   m_configObjects: {}
