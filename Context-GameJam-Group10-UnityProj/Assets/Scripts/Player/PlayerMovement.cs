@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     private float runSpeedMultiplier = 1.0f;
     public float runSpeedMultiplierHigh = 2.0f;
     private float diagonalSpeedMultiplier = 1.0f;
-    private float dashSpeedMultiplier = 1.0f;
+    //private float dashSpeedMultiplier = 1.0f;
 
     private GameObject PlayerSpriteAnimatorObject;
     private Animator PlayerSpriteAnimator;
@@ -37,10 +37,9 @@ public class PlayerMovement : MonoBehaviour {
     private bool isStanding = false;
 
     private void Awake() {
-        //ChildTrail = gameObject.GetComponentInChildren<TrailRenderer>();
         ChildParticles = GetComponentInChildren<ParticleSystem>();
-        //PlayerSpriteAnimatorObject = gameObject.GetComponentInChildren<PlayerSprite>().gameObject;
-        //PlayerSpriteAnimator = PlayerSpriteAnimatorObject.GetComponent<Animator>();
+        PlayerSpriteAnimatorObject = gameObject.GetComponentInChildren<PlayerSprite>().gameObject;
+        PlayerSpriteAnimator = PlayerSpriteAnimatorObject.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -64,37 +63,29 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftShift) && isMoving) {
             runSpeedMultiplier = runSpeedMultiplierHigh;
 
-            //ChildTrail.emitting = true;
             ChildParticles.Play();
 
-            //gameObject.transform.GetChild(0).gameObject.SetActive(true);
 
         } else {
             runSpeedMultiplier = 1;
 
-            //ChildTrail.emitting = false;
             ChildParticles.Stop();
 
-            //gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && isStanding) {
             Jump();
         }
 
-        //rb.AddForce(movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * dashSpeedMultiplier, ForceModePlayer);
-
         rb.position += (movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * Time.deltaTime);
         ResetPosition();
-        /*
+        
         DetermineDirection();
         PlayerSpriteAnimator.SetBool("MovingUp", movingUp);
         PlayerSpriteAnimator.SetBool("MovingDown", movingDown);
         PlayerSpriteAnimator.SetBool("MovingLeft", movingLeft);
         PlayerSpriteAnimator.SetBool("MovingRight", movingRight);
         
-        PlayerSpriteAnimator.SetBool("IsMoving", isMoving);
-        */
     }
 
     public void ResetPosition() {
@@ -137,9 +128,5 @@ public class PlayerMovement : MonoBehaviour {
         if (collision.gameObject.name == "polySurface4") {
             isStanding = false;
         }
-    }
-
-    private void IsStanding() {
-
     }
 }

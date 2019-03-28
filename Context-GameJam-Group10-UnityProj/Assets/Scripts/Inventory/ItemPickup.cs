@@ -10,7 +10,7 @@ public class ItemPickup : MonoBehaviour {
         Inventory = GetComponent<Inventory>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.GetComponent<Item>() == null) {
             Debug.Log("Object does not contain Item component, so it can't be picked up");
             return;
