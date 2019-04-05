@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
     public float speed = 10.0f;
     private float runSpeedMultiplier = 1.0f;
@@ -35,6 +36,10 @@ public class PlayerMovement : MonoBehaviour {
 
     public float jumpForce = 1f;
     private bool isStanding = false;
+
+    private Camera cam;
+
+    public Interactable_Brackeys focus;
 
     private void Awake() {
         ChildParticles = GetComponentInChildren<ParticleSystem>();
@@ -85,8 +90,30 @@ public class PlayerMovement : MonoBehaviour {
         PlayerSpriteAnimator.SetBool("MovingDown", movingDown);
         PlayerSpriteAnimator.SetBool("MovingLeft", movingLeft);
         PlayerSpriteAnimator.SetBool("MovingRight", movingRight);
-        
+
+        //if (Input.GetMouseButton(0)) {
+        //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+        //    if ()
+        //}
+
+        //if (Input.GetMouseButtonDown(1)) {
+        //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+
+        //    if (Physics.Raycast(ray, out hit, 100)) {
+        //        Interactable_Brackeys interactable = hit.collider.GetComponent<Interactable_Brackeys>();
+        //        if (interactable != null) {
+        //            SetFocus(interactable);
+        //        }
+        //    }
+        //}
+
     }
+
+    //private void SetFocus(Interactable_Brackeys newFocus) {
+    //    focus = newFocus;
+    //}
 
     public void ResetPosition() {
         if (Input.GetKeyDown(PositionResetButton)) gameObject.transform.position = resetCoordinates;

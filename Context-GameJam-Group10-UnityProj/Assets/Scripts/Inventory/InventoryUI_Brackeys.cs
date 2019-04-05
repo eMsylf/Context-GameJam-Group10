@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI_Brackeys : MonoBehaviour
 {
-    Inventory inventory;
+    Inventory_Brackeys inventory;
 
     void Start()
     {
         //inventory = Inventory.instance;
+
     }
 
     void Update()
