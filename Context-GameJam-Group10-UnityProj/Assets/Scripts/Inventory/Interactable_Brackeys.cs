@@ -9,6 +9,10 @@ public class Interactable_Brackeys : MonoBehaviour {
 
     private bool hasInteracted = false;
 
+    private void Start() {
+        interactionTransform = GetComponentInChildren<InteractionTransform>().transform;
+    }
+
     public virtual void Interact () {
         // This method is meant to be overwritten
         Debug.Log("Interacting with" + transform.name);
