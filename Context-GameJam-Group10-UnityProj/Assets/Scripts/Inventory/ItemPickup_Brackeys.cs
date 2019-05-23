@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class ItemPickup_Brackeys : MonoBehaviour {
     public Item item;
-
-
-
-    void Start() {
-
-    }
-
-    void Update() {
-
-    }
+    //public override void Interact() {
+    //    base.Interact();
+    //}
 }
