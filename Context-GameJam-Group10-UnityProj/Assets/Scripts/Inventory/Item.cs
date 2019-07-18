@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour{
-    public int ID;
-    // public string name;
-
-    public Item (int ID, string name) {
+public class Item : IInteractable{
+    public Item(int ID, string itemName) : base(ID, itemName) {
         this.ID = ID;
-        this.name = name;
+        this.ItemName = itemName;
     }
 }

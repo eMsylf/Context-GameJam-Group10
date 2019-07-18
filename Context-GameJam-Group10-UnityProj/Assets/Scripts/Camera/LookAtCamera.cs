@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
-    public Transform GUITarget;
+    private Transform GUITarget;
 
-    
+    private void Start() {
+        GUITarget = FindObjectOfType<Camera>().transform;
+    }
+
     void Update()
     {
         transform.LookAt(GUITarget);

@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = .125f;
     public Vector3 offset;
     private Vector3 defaultOffset;
-    public bool EnableLookAt;
+    private bool EnableLookAt;
     //public bool ViewTop;
 
     //private bool cameraIsRotated;
@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour
         defaultOffset = offset;
     }
 
-    private void FixedUpdate() {
+    private void LateUpdate() {
         //if (Input.GetKeyDown(CameraSwitchKey)) ViewTop = !ViewTop;
 
         if (Input.GetKeyDown(LookAtToggle)) EnableLookAt = !EnableLookAt;

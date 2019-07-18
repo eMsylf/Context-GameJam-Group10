@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IInteractable : MonoBehaviour
-{
-    public string ObjectName;
+// This script is attached to TestInteractables, and used by the InteractionScript which belongs to the Player
 
-    private void Start() {
-        ObjectName = name;
+public class IInteractable : MonoBehaviour {
+    public int ID;
+    public string ItemName;
+
+    public IInteractable(int ID, string itemName) {
+        this.ItemName = itemName;
+        this.ID = ID;
     }
-    // This script is attached to test interactables, and used by the InteractionScript that belongs to the Player
-
 
 }

@@ -18,11 +18,6 @@ public class PlayerController : MonoBehaviour {
 
     public Rigidbody rb;
 
-    private PositionReset PositionReset;
-
-    private KeyCode PositionResetButton;
-    public Vector3 resetCoordinates = new Vector3(0, 0, 0);
-
     private TrailRenderer ChildTrail;
     private ParticleSystem ChildParticles;
 
@@ -49,12 +44,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Start() {
-        PositionReset = gameObject.GetComponent<PositionReset>();
-        PositionResetButton = PositionReset.ResetButton;
 
     }
 
-    void FixedUpdate() {
+    void Update() {
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
         if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0) {
@@ -83,7 +76,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         rb.position += (movement * speed * runSpeedMultiplier * diagonalSpeedMultiplier * Time.deltaTime);
-        ResetPosition();
         
         DetermineDirection();
         PlayerSpriteAnimator.SetBool("MovingUp", movingUp);
@@ -114,10 +106,6 @@ public class PlayerController : MonoBehaviour {
     //private void SetFocus(Interactable_Brackeys newFocus) {
     //    focus = newFocus;
     //}
-
-    public void ResetPosition() {
-        if (Input.GetKeyDown(PositionResetButton)) gameObject.transform.position = resetCoordinates;
-    }
 
     private void DetermineDirection() {
         if (Input.GetAxis("Vertical") > 0) {

@@ -1,5 +1,6 @@
 ﻿//using System.Collections;
 //using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class InteractionScript : MonoBehaviour {
@@ -12,49 +13,50 @@ public class InteractionScript : MonoBehaviour {
     public bool useUIForTesting;
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.GetComponent<IInteractable>() == null) {
-            return;
-        }
         collidingObject = collision.gameObject;
-        IsColliding(true);
-        AddToInventory(collidingObject.GetComponent<IInteractable>());
+
+        if (collidingObject.GetComponent<Item>() != null) {
+            Item item = collidingObject.GetComponent<Item>();
+            ItemInRange(true, item);
+        }
+
+        AddToInventory(collidingObject.GetComponent<Item>());
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.gameObject.GetComponent<IInteractable>() == null) {
+        if (collision.gameObject.GetComponent<Item>() == null) {
             return;
         }//is het netjes om hier een else {} te gebruiken?
-        IsColliding(false);
-
-        collidingObject = collision.gameObject;
+        Item item = collision.gameObject.GetComponent<Item>();
+        ItemInRange(false, item);
     }
 
-    public bool IsColliding(bool t_isColliding) { //wat is er met de naming convention m_Variable? waarom m_?
-        collidingObject.GetComponent<SpriteRenderer>().enabled = !t_isColliding;
+    public bool ItemInRange(bool _itemInRange, Item _item) { //wat is er met de naming convention m_Variable? waarom m_?
+        collidingObject.GetComponent<SpriteRenderer>().enabled = !_itemInRange;
 
-        Debug.Log(name + " is colliding with " + collidingObject.name + " " + t_isColliding);
-        if (DialogueUI == null || !useUIForTesting) {
+        Debug.Log(name + " is colliding with " + collidingObject.name + " " + _itemInRange);
+        if (DialogueUI == null) {
             return true;
         }
-        DialogueUI.SetActive(t_isColliding);
-        isColliding = t_isColliding;
-        return t_isColliding;
+        DialogueUI.SetActive(_itemInRange);
+        isColliding = _itemInRange;
+        return _itemInRange;
     }
 
     private void InteractWithObject() {
         Debug.Log(name + ": I am trying to interact with " + collidingObject.name);
     }
 
-    private void AddToInventory(IInteractable m_item) {
+    private void AddToInventory(Item m_item) {
         //Inventory.Interactables.Add(m_item);
-        Debug.Log("Adding item: " + m_item.name);
+        Debug.Log("Adding item: " + m_item.ItemName);
     }
 
     void Update() {
         //Debug.Log("Player is colliding: " + isColliding);
-        if (isColliding && Input.GetKeyDown(KeyCode.Space)) {
+        if (isColliding && Input.GetKeyDown(KeyCode.Z)) {
             InteractWithObject();
-            //AddToInventory();
+            AddToInventory(collidingObject.GetComponent<Item>());
         }
     }
 }
