@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
-    public GameObject[] InventorySlot;
+    public Crafting Crafting;
+    public GameObject[] InventorySlots;
     public GameObject[] Items;
     public Transform Player;
 
@@ -17,7 +18,7 @@ public class Inventory : MonoBehaviour {
     }
 
     public void AddToInventory(GameObject item, int slot) {
-        GameObject currentSlot = InventorySlot[slot];
+        GameObject currentSlot = InventorySlots[slot];
         Image currentSlotImage = currentSlot.GetComponent<InventorySlotScript>().ItemImage;
         Button currentSlotRemoveButton = currentSlot.GetComponent<InventorySlotScript>().ItemRemoveButton;
         Sprite itemSprite = item.GetComponent<SpriteRenderer>().sprite;
@@ -34,7 +35,7 @@ public class Inventory : MonoBehaviour {
         item.transform.position = Player.position;
         Items[slot] = null;
 
-        GameObject currentSlot = InventorySlot[slot];
+        GameObject currentSlot = InventorySlots[slot];
 
         currentSlot.GetComponent<InventorySlotScript>().ItemImage.enabled = false;
         currentSlot.GetComponent<InventorySlotScript>().ItemRemoveButton.interactable = false;
