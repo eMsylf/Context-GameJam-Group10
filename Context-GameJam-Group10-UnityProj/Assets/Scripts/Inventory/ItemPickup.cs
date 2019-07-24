@@ -7,7 +7,6 @@ public class ItemPickup : MonoBehaviour {
     public Inventory Inventory;
     private GameObject itemObject;
     private Item item;
-    private bool isColliding = false;
 
     public Text pickUpItemText;
 
