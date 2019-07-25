@@ -8,8 +8,5 @@ public class InventorySlotScript : MonoBehaviour {
     public Image ItemImage;
     public Button ItemRemoveButton;
     public int slotNumber;
-
-    void Update() {
-
-    }
+    public CraftingSlotScript CraftingSlotReference;
 }

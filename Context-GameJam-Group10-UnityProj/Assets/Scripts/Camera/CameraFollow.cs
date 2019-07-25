@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour
         defaultOffset = offset;
     }
 
-    private void LateUpdate() {
+    private void Update() {
         //if (Input.GetKeyDown(CameraSwitchKey)) ViewTop = !ViewTop;
 
         if (Input.GetKeyDown(LookAtToggle)) EnableLookAt = !EnableLookAt;

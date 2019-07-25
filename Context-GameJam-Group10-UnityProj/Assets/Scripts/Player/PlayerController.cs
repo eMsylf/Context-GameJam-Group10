@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 
     public float jumpForce = 1f;
     private bool isStanding = false;
+    public bool CanJump;
 
     private Camera cam;
 
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isStanding) {
+        if (Input.GetKeyDown(KeyCode.Space) && isStanding && CanJump) {
             Jump();
         }
 

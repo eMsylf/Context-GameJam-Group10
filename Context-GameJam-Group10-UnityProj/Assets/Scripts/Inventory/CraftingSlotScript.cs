@@ -3,22 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CraftingSlotScript : MonoBehaviour
-{
-    public GameObject HeldObject;
-    public Image ItemImage;
-    public Button ItemRemoveButton;
+public class CraftingSlotScript : MonoBehaviour {
+    public InventorySlotScript InventorySlotReference;
     public int slotNumber;
+    public Image ItemImage;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

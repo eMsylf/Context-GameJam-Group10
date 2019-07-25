@@ -5,31 +5,43 @@ using UnityEngine.UI;
 
 public class Crafting : MonoBehaviour {
     public Inventory Inventory;
-    public GameObject[] IngredientSlots;
+    public CraftingSlotScript[] IngredientSlots;
     public GameObject Outcome;
     public GameObject[] Items;
+    private Image IngredientSlotImage;
 
-    void Start() {
+    private void Start() {
+        ResetSlotImages();
+    }
+
+    private void Update() {
 
     }
 
-    void Update() {
-
+    public void ResetSlotImages() {
+        for (int i = 0; i < Items.Length - 1; i++) {
+            SetSlotImage(i, null);
+        }
     }
 
-    public void AddToCrafting() {
+    public void SetSlotImage(int slot, Sprite sprite) {
+        if (sprite == null) {
+            IngredientSlots[slot].ItemImage.enabled = false;
+            return;
+        }
 
+        IngredientSlots[slot].ItemImage.enabled = true;
+        IngredientSlots[slot].ItemImage.sprite = sprite;
+        //IngredientSlots[slot].
     }
 
-    public void AddToCrafting(int slot) {
-        GameObject currentSlot = IngredientSlots[slot];
-        Image currentSlotImage = currentSlot.GetComponent<InventorySlotScript>().ItemImage;
-        Button currentSlotRemoveButton = currentSlot.GetComponent<InventorySlotScript>().ItemRemoveButton;
-        //Sprite itemSprite = item.GetComponent<SpriteRenderer>().sprite;
+    public void RemoveFromCraftingMenu(int slot) {
+        if (IngredientSlots[slot].InventorySlotReference != null) {
+            SetSlotImage(slot, null);
+            Items[slot] = null;
+            IngredientSlots[slot].InventorySlotReference.CraftingSlotReference = null;
+            IngredientSlots[slot].InventorySlotReference = null;
+        }
 
-        currentSlotImage.enabled = true;
-        //currentSlotImage.sprite = item.GetComponent<SpriteRenderer>().sprite;
-
-        currentSlotRemoveButton.interactable = true;
     }
 }

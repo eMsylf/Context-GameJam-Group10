@@ -70,7 +70,7 @@ public class ItemPickup : MonoBehaviour {
 
         for (int i = 0; i < Inventory.Items.Length; i++) {
             // Check if inventory is full
-            if (i == 3 && Inventory.Items[i] != null) {
+            if (i == Inventory.Items.Length -1 && Inventory.Items[i] != null) {
                 Debug.Log("Inventory is full.");
                 pickUpItemText.text = "Inventory full!";
                 return;
