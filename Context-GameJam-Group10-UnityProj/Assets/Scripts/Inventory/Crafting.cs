@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class Crafting : MonoBehaviour {
     public Inventory Inventory;
     public CraftingSlotScript[] IngredientSlots;
-    public GameObject Outcome;
+    public OutcomeSlotScript OutcomeSlot;
     public Item[] Items;
     private Image IngredientSlotImage;
+    private CraftingRecipies CraftingRecipies;
 
     private void Start() {
         ResetSlotImages();
+        CraftingRecipies = GetComponent<CraftingRecipies>();
     }
 
     private void Update() {
@@ -46,6 +48,10 @@ public class Crafting : MonoBehaviour {
     }
 
     public void Craft() {
-        //Items[3] = 
+        if (CraftingRecipies.ID0_0 == IngredientSlots[0].InventorySlotReference.HeldItem.ID) {
+            OutcomeSlot.ItemImage.enabled = true;
+        } else {
+            OutcomeSlot.ItemImage.enabled = false;
+        }
     }
 }

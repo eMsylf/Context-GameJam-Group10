@@ -62,6 +62,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4065562833585734}
   - component: {fileID: 4793756699560717097}
+  - component: {fileID: 1540565388694435662}
   m_Layer: 0
   m_Name: Windmolen
   m_TagString: Untagged
@@ -99,6 +100,21 @@ CapsuleCollider:
   m_Height: 6.2025213
   m_Direction: 1
   m_Center: {x: 0, y: -1.20229, z: 0}
+--- !u!114 &1540565388694435662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111653163547776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a67b77b9d529b4985b0a3a58860e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  ItemName: 
+  isCombinedItem: 0
 --- !u!1 &1139279839347516
 GameObject:
   m_ObjectHideFlags: 0
