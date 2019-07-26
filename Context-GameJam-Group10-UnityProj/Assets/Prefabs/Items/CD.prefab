@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1
   ItemName: cd
+  isCombinedItem: 0
 --- !u!135 &4764034688109315481
 SphereCollider:
   m_ObjectHideFlags: 0

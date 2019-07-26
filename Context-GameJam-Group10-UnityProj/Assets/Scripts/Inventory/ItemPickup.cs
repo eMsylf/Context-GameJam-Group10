@@ -23,7 +23,7 @@ public class ItemPickup : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(itemPickupKey)) {
             if (itemInRange) {
-                PickUp(item.gameObject);
+                PickUp(item);
             }
         }
     }
@@ -66,7 +66,7 @@ public class ItemPickup : MonoBehaviour {
         return _itemInRange;
     }
 
-    private void PickUp(GameObject pickup) {
+    private void PickUp(Item pickup) {
 
         for (int i = 0; i < Inventory.Items.Length; i++) {
             // Check if inventory is full
@@ -82,9 +82,9 @@ public class ItemPickup : MonoBehaviour {
             // Put an item into the first empty item slot
             else {
                 Debug.Log("You put <b>" + item.ItemName + "</b> into slot <b>" + i + "</b>");
-                Inventory.Items[i] = pickup.gameObject;
+                Inventory.Items[i] = pickup;
                 Inventory.AddToInventory(pickup, i);
-                pickup.SetActive(false);
+                pickup.gameObject.SetActive(false);
                 pickUpItemText.enabled = false;
                 ItemInRange(false, item);
                 return;

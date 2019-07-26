@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySlotScript : MonoBehaviour {
-    public GameObject HeldObject;
+    public Item HeldItem;
     public Image ItemImage;
     public Button ItemRemoveButton;
     public int slotNumber;

@@ -7,7 +7,7 @@ public class Crafting : MonoBehaviour {
     public Inventory Inventory;
     public CraftingSlotScript[] IngredientSlots;
     public GameObject Outcome;
-    public GameObject[] Items;
+    public Item[] Items;
     private Image IngredientSlotImage;
 
     private void Start() {
@@ -43,5 +43,9 @@ public class Crafting : MonoBehaviour {
             IngredientSlots[slot].InventorySlotReference = null;
         }
 
+    }
+
+    public void Craft() {
+        //Items[3] = 
     }
 }

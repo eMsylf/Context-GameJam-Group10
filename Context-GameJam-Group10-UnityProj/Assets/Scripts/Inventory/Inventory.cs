@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour {
     public Crafting Crafting;
     public InventorySlotScript[] InventorySlots;
-    public GameObject[] Items;
+    public Item[] Items;
     public Transform Player;
 
     private void Awake() {
@@ -17,14 +17,14 @@ public class Inventory : MonoBehaviour {
         
     }
 
-    public void AddToInventory(GameObject item, int slot) {
+    public void AddToInventory(Item item, int slot) {
         InventorySlotScript currentSlot = InventorySlots[slot];
         InventorySlotScript currentSlotScript = currentSlot.GetComponent<InventorySlotScript>();
         Image currentSlotImage = currentSlot.GetComponent<InventorySlotScript>().ItemImage;
         Button currentSlotRemoveButton = currentSlot.GetComponent<InventorySlotScript>().ItemRemoveButton;
         Sprite itemSprite = item.GetComponent<SpriteRenderer>().sprite;
 
-        currentSlotScript.HeldObject = item;
+        currentSlotScript.HeldItem = item;
         currentSlotScript.ItemImage.enabled = true;
         currentSlotScript.ItemImage.sprite = item.GetComponent<SpriteRenderer>().sprite;
 
@@ -33,9 +33,9 @@ public class Inventory : MonoBehaviour {
 
     public void RemoveFromInventory(int slot) {
         InventorySlotScript currentSlotScript = InventorySlots[slot].GetComponent<InventorySlotScript>();
-        GameObject item = currentSlotScript.HeldObject;
+        Item item = currentSlotScript.HeldItem;
         
-        item.SetActive(true);
+        item.gameObject.SetActive(true);
         item.transform.position = Player.position;
         Items[slot] = null;
         Debug.Log("Dropped " + item.name);
@@ -62,6 +62,11 @@ public class Inventory : MonoBehaviour {
                 }
             }
 
+            if (Items[slot].isCombinedItem) {
+                Debug.Log("This item cannot be used to craft");
+                return;
+            }
+
             if (Crafting.IngredientSlots[i].InventorySlotReference != null) {
                 Debug.Log("This crafting slot already holds an item");
                 if (i == Crafting.Items.Length - 1) {
@@ -75,7 +80,7 @@ public class Inventory : MonoBehaviour {
                 Crafting.IngredientSlots[i].InventorySlotReference = InventorySlots[slot];
 
                 // Assign the object in the inventory to the crafting slot
-                Crafting.Items[i] = InventorySlots[i].HeldObject;
+                Crafting.Items[i] = InventorySlots[i].HeldItem;
                 // Set the image of the crafting slot
                 Crafting.SetSlotImage(i, InventorySlots[slot].GetComponent<InventorySlotScript>().ItemImage.sprite);
                 return;
