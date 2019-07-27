@@ -55,7 +55,7 @@ public class ItemPickup : MonoBehaviour {
         item = itemObject.GetComponent<Item>();
         if (_itemInRange) {
             Debug.Log(item + " is in range for pickup.");
-            pickUpItemText.text = "Press " + itemPickupKey + " to pick up " + item.ItemName;
+            pickUpItemText.text = "Press " + itemPickupKey + "\nto pick up " + item.ItemName;
             pickUpItemText.enabled = true;
         } else {
             Debug.Log(item + " is no longer in range.");

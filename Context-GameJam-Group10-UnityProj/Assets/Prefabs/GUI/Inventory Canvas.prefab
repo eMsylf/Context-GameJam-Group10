@@ -1460,6 +1460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inventory: {fileID: 347545973643071079}
+  CraftingRecipies: {fileID: 0}
   IngredientSlots:
   - {fileID: 4304153194654156263}
   - {fileID: 1189860078969259029}
@@ -1480,12 +1481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b87ff15e4b4184cb475eae62983535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Outcome0: 
-  ID0_0: 0
-  ID0_1: 0
-  Outcome1: 
-  Outcome2: 
-  Outcome3: 
+  ListOfAllItemIngredients: []
+  ListOfAllCombinedItems: []
 --- !u!1 &3324772220022848337
 GameObject:
   m_ObjectHideFlags: 0

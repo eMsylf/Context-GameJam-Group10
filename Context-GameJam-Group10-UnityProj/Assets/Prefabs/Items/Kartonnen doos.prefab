@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3309912182949178433
+--- !u!1 &2394605565376695157
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2565602839535320190}
-  - component: {fileID: 3016096587132189891}
-  - component: {fileID: 4717022669939634428}
-  - component: {fileID: 3206991178794408459}
-  - component: {fileID: 2955915153613365351}
+  - component: {fileID: 5245356575757405296}
+  - component: {fileID: 8589842231305897251}
+  - component: {fileID: 4431563309997949945}
+  - component: {fileID: 3781760721025969547}
+  - component: {fileID: 6420550136058053929}
   m_Layer: 0
-  m_Name: Papier
+  m_Name: Kartonnen doos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2565602839535320190
+--- !u!4 &5245356575757405296
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3309912182949178433}
+  m_GameObject: {fileID: 2394605565376695157}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.196, y: 0.33, z: -8.474}
+  m_LocalPosition: {x: 34.397, y: 0.33, z: -9.716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3016096587132189891
+--- !u!212 &8589842231305897251
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3309912182949178433}
+  m_GameObject: {fileID: 2394605565376695157}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8617feb99ffae3b4684c93d21b4dcd26, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be6fde5aa81b4d7428c4e4f884ba0198, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,42 +82,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4717022669939634428
+--- !u!114 &4431563309997949945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3309912182949178433}
+  m_GameObject: {fileID: 2394605565376695157}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23a67b77b9d529b4985b0a3a58860e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 2
-  ItemName: papier
+  ID: 1
+  ItemName: kartonnen doos
   IsCombinedItem: 0
   Image: {fileID: 0}
---- !u!135 &3206991178794408459
+--- !u!135 &3781760721025969547
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3309912182949178433}
+  m_GameObject: {fileID: 2394605565376695157}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2955915153613365351
+--- !u!114 &6420550136058053929
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3309912182949178433}
+  m_GameObject: {fileID: 2394605565376695157}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0364b8a45a1007447899ec99632898b6, type: 3}

@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour {
                 }
             }
 
-            if (Items[slot].isCombinedItem) {
+            if (Items[slot].IsCombinedItem) {
                 Debug.Log("This item cannot be used to craft");
                 return;
             }
@@ -83,6 +83,12 @@ public class Inventory : MonoBehaviour {
                 Crafting.Items[i] = InventorySlots[i].HeldItem;
                 // Set the image of the crafting slot
                 Crafting.SetSlotImage(i, InventorySlots[slot].GetComponent<InventorySlotScript>().ItemImage.sprite);
+
+                if (Crafting.IngredientSlots[0].InventorySlotReference != null 
+                    && Crafting.IngredientSlots[1].InventorySlotReference != null) {
+                    Crafting.ShowCombinedItem();
+                }
+
                 return;
             }
         }
