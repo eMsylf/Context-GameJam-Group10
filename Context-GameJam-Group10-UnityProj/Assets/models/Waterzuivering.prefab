@@ -106,6 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4516552934028056}
+  - component: {fileID: 8725757005635240544}
   m_Layer: 0
   m_Name: Waterzuivering
   m_TagString: Untagged
@@ -129,6 +130,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8725757005635240544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955396778758162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a67b77b9d529b4985b0a3a58860e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4
+  ItemName: waterzuivering
+  IsCombinedItem: 1
+  SpriteRenderer: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 64638b4063aa83041afdd1f82a9ff616, type: 3}
 --- !u!1 &1981282839628804
 GameObject:
   m_ObjectHideFlags: 0

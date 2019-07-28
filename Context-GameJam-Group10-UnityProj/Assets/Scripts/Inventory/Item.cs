@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Item : IInteractable{
     public bool IsCombinedItem;
     public SpriteRenderer SpriteRenderer;
+    public Sprite Sprite;
 
     public Item(int ID, string itemName, bool isCombinedItem, SpriteRenderer spriteRenderer) : base(ID, itemName) {
         this.ID = ID;
@@ -16,7 +17,11 @@ public class Item : IInteractable{
     }
 
     private void Start() {
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        if (Sprite == null) {
+            SpriteRenderer = GetComponent<SpriteRenderer>();
+            Sprite = SpriteRenderer.sprite;
+
+        }
     }
 
 }

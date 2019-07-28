@@ -30,21 +30,21 @@ public class CraftingRecipies : MonoBehaviour {
 
     public int DetermineCraftingOutcome_V2(int ID0, int ID1) {
         switch (ID0) {
-            case 0: // 
+            case 0: // CD als basis
                 switch (ID1) {
-                    case 0:
-                        return 0;
-                    case 1:
-                        return 1;
+                    case 0: // CD als top
+                        return 0; // Zonnepaneel
+                    case 1: // Kartonnen doos als top
+                        return 1; // Windmolen
                     default:
                         return -1;
                 }
-            case 1:
+            case 1: // Kartonnen doos als basis
                 switch (ID1) {
-                    case 0:
-                        return 2;
-                    case 1:
-                        return 3;
+                    case 0: // CD als top
+                        return 2; // Waterzuivering
+                    case 1: // Kartonnen doos als top
+                        return 3; // Broeikas
                     default:
                         return -1;
                 }

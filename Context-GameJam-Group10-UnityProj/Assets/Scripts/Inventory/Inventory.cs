@@ -21,30 +21,61 @@ public class Inventory : MonoBehaviour {
         InventorySlotScript currentSlot = InventorySlots[slot];
         InventorySlotScript currentSlotScript = currentSlot.GetComponent<InventorySlotScript>();
         Image currentSlotImage = currentSlot.GetComponent<InventorySlotScript>().ItemImage;
-        Button currentSlotRemoveButton = currentSlot.GetComponent<InventorySlotScript>().ItemRemoveButton;
-        Sprite itemSprite = item.GetComponent<SpriteRenderer>().sprite;
+        if (item == null) {
+            Debug.Log("There's no item");
+            return;
+        }
+        Sprite itemSprite = item.Sprite;
+
+        currentSlot.GetComponent<InventorySlotScript>().ItemRemoveButton.interactable = true;
 
         currentSlotScript.HeldItem = item;
+        Items[slot] = item;
         currentSlotScript.ItemImage.enabled = true;
-        currentSlotScript.ItemImage.sprite = item.GetComponent<SpriteRenderer>().sprite;
-
-        currentSlotRemoveButton.interactable = true;
+        currentSlotScript.ItemImage.sprite = item.Sprite;
     }
 
     public void RemoveFromInventory(int slot) {
-        InventorySlotScript currentSlotScript = InventorySlots[slot].GetComponent<InventorySlotScript>();
-        Item item = currentSlotScript.HeldItem;
-        
-        item.gameObject.SetActive(true);
-        item.transform.position = Player.position;
-        Items[slot] = null;
-        Debug.Log("Dropped " + item.name);
+        RemoveFromInventory(slot, false);
+    }
 
+    public void RemoveFromInventory(int slot, bool useItem) {
+        InventorySlotScript currentSlotScript;
+        if (useItem) { // Destroy item
+            currentSlotScript = InventorySlots[slot];
+            //if (Crafting.IngredientSlots[slot] == null) {
+            //    Debug.Log("Crafting slot " + slot + "is null");
+            //    return;
+            //}
+            //if (Crafting.IngredientSlots[slot].InventorySlotReference == null) {
+            //    Debug.Log("No inventory reference");
+            //    return;
+            //}
+            
+            Debug.Log("Using item");
+            //Debug.Log("Used " + currentSlotScript.HeldItem.ItemName);
+
+        } else { // Drop item
+            currentSlotScript = InventorySlots[slot];
+            currentSlotScript.HeldItem.gameObject.SetActive(true);
+            currentSlotScript.HeldItem.transform.position = Player.position;
+            Debug.Log("Dropping item");
+            //Debug.Log("Dropped " + currentSlotScript.HeldItem.ItemName);
+        }
+        Items[slot] = null;
+
+        if (currentSlotScript == null) {
+            Debug.Log("No slot script");
+            return;
+        } else if (currentSlotScript.ItemImage == null) {
+            Debug.Log("No item image in this slot script");
+        }
         currentSlotScript.ItemImage.enabled = false;
         currentSlotScript.GetComponent<InventorySlotScript>().ItemRemoveButton.interactable = false;
 
         Crafting.RemoveFromCraftingMenu(0);
         Crafting.RemoveFromCraftingMenu(1);
+        Crafting.ClearCombinedItem();
 
     }
 
@@ -80,7 +111,7 @@ public class Inventory : MonoBehaviour {
                 Crafting.IngredientSlots[i].InventorySlotReference = InventorySlots[slot];
 
                 // Assign the object in the inventory to the crafting slot
-                Crafting.Items[i] = InventorySlots[i].HeldItem;
+                Crafting.Items[i] = InventorySlots[slot].HeldItem;
                 // Set the image of the crafting slot
                 Crafting.SetSlotImage(i, InventorySlots[slot].GetComponent<InventorySlotScript>().ItemImage.sprite);
 

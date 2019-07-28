@@ -42,41 +42,49 @@ public class Crafting : MonoBehaviour {
         if (IngredientSlots[slot].InventorySlotReference != null) {
             SetSlotImage(slot, null);
             Items[slot] = null;
+            
+            
             IngredientSlots[slot].InventorySlotReference.CraftingSlotReference = null;
             IngredientSlots[slot].InventorySlotReference = null;
         }
-
     }
 
     public void ShowCombinedItem() {
+        // Determine crafted item ID
+        int craftedItemID = CraftingRecipies.DetermineCraftingOutcome_V2(Items[0].ID, Items[1].ID);
+        Debug.Log(" | " + Items[0].ID + " | " + Items[1].ID + " Grafted aitem aidee: " + craftedItemID);
         // Instantiate item
-
         // Set held item
-        OutcomeSlot.HeldItem = Instantiate(CraftingRecipies.ListOfAllCombinedItems[CraftingRecipies.DetermineCraftingOutcome_V2(Items[0].ID, Items[1].ID)]);
-        OutcomeSlot.HeldItem.gameObject.SetActive(false);
+        OutcomeSlot.HeldItem = Instantiate(CraftingRecipies.ListOfAllCombinedItems[craftedItemID]);
+        Items[2] = OutcomeSlot.HeldItem;
+        // Set shown sprite
+        OutcomeSlot.ItemSprite = OutcomeSlot.HeldItem.Sprite;
         // Enable image
         OutcomeSlot.ItemImage.enabled = true;
-        // Set shown sprite
-        OutcomeSlot.ItemSprite = OutcomeSlot.HeldItem.GetComponent<SpriteRenderer>().sprite;
+        OutcomeSlot.ItemImage.sprite = OutcomeSlot.ItemSprite;
+        // Hide item from view
+        OutcomeSlot.HeldItem.gameObject.SetActive(false);
     }
 
     public void ClearCombinedItem() {
         OutcomeSlot.HeldItem = null;
+        Items[2] = null;
         OutcomeSlot.ItemImage.enabled = false;
         OutcomeSlot.ItemSprite = null;
     }
 
     public void Craft() {
+        if (IngredientSlots[0].InventorySlotReference == null || IngredientSlots[1].InventorySlotReference == null) {
+            Debug.Log("Not all crafting slots contain an item");
+            return;
+        }
         Debug.Log("Craft");
-        SendCombinedItemToInventory();
-        ClearCombinedItem();
+        Item craftedItem = OutcomeSlot.HeldItem;
+        InventorySlotScript destinationSlot = Inventory.InventorySlots[IngredientSlots[0].InventorySlotReference.slotNumber];
         ClearInventorySlots();
-        RemoveFromCraftingMenu(0);
-        RemoveFromCraftingMenu(1);
-        //if (IngredientSlots[0].InventorySlotReference == null || IngredientSlots[1].InventorySlotReference == null) {
-        //    Debug.Log("huh");
-        //    return;
-        //}
+        SendCombinedItemToInventory(craftedItem, destinationSlot);
+        //RemoveFromCraftingMenu(0);
+        //RemoveFromCraftingMenu(1);
         //if (CraftingRecipies.ID0_0 == IngredientSlots[0].InventorySlotReference.HeldItem.ID) {
         //    Debug.Log("Changing");
         //    OutcomeSlot.ItemImage.enabled = true;
@@ -87,12 +95,15 @@ public class Crafting : MonoBehaviour {
     }
 
     private void ClearInventorySlots() {
-        IngredientSlots[0].InventorySlotReference.HeldItem = null;
-        IngredientSlots[1].InventorySlotReference.HeldItem = null;
+        int firstSlot = IngredientSlots[0].InventorySlotReference.slotNumber;
+        int secondSlot = IngredientSlots[1].InventorySlotReference.slotNumber;
+
+        Inventory.RemoveFromInventory(firstSlot, true);
+        Inventory.RemoveFromInventory(secondSlot, true);
     }
 
-    private void SendCombinedItemToInventory() {
-        
-        //throw new NotImplementedException();
+    private void SendCombinedItemToInventory(Item combinedItem, InventorySlotScript destinationInventorySlot) {
+        //Items[2].gameObject.SetActive(true);
+        Inventory.AddToInventory(combinedItem, destinationInventorySlot.slotNumber);
     }
 }
