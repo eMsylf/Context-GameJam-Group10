@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4555772645311138}
   - component: {fileID: 739576238794598631}
   - component: {fileID: 3239115735875457173}
+  - component: {fileID: 6493871315384638541}
+  - component: {fileID: 3095631166638017517}
   m_Layer: 0
   m_Name: Zonnepaneel
   m_TagString: Untagged
@@ -25,14 +27,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760646013525298}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4473102371203522}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &739576238794598631
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63,6 +65,34 @@ MonoBehaviour:
   IsCombinedItem: 1
   SpriteRenderer: {fileID: 0}
   Sprite: {fileID: 21300000, guid: cb5feb422073bc541bea072ef7274b71, type: 3}
+--- !u!114 &6493871315384638541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760646013525298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad5667ed94d38cc4bb3f2448915bfd34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractionRange: {fileID: 3095631166638017517}
+  VerticalOffset: 1.3
+  ObjectWidth: 2
+--- !u!65 &3095631166638017517
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760646013525298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.5, y: 4, z: 3.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1995066652148658
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// This inventory layout and script is inspired by Brackey's tutorial on inventories in games.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +29,9 @@ public class Inventory : MonoBehaviour {
         }
         Sprite itemSprite = item.Sprite;
 
+        
         currentSlot.GetComponent<InventorySlotScript>().ItemRemoveButton.interactable = true;
+        
 
         currentSlotScript.HeldItem = item;
         Items[slot] = item;
@@ -58,8 +62,14 @@ public class Inventory : MonoBehaviour {
         } else { // Drop item
             currentSlotScript = InventorySlots[slot];
             currentSlotScript.HeldItem.gameObject.SetActive(true);
-            currentSlotScript.HeldItem.transform.position = Player.position;
-            Debug.Log("Dropping item");
+
+            if (currentSlotScript.HeldItem.IsCombinedItem) {
+                PlaceItem(currentSlotScript.HeldItem, currentSlotScript);
+            } else {
+                currentSlotScript.HeldItem.transform.position = Player.position;
+                Debug.Log("Dropping item");
+            }
+             
             //Debug.Log("Dropped " + currentSlotScript.HeldItem.ItemName);
         }
         Items[slot] = null;
@@ -77,6 +87,31 @@ public class Inventory : MonoBehaviour {
         Crafting.RemoveFromCraftingMenu(1);
         Crafting.ClearCombinedItem();
 
+    }
+
+    public void UseItem(int slot) {
+        if (Items[slot] == null) {
+            Debug.Log("This inventory slot contains no item.");
+            return;
+        }
+
+        if (Items[slot].IsCombinedItem) {
+            PlaceItem(Items[slot], InventorySlots[slot]);
+        } else {
+            CopyToCraftingMenu(slot);
+        }
+    }
+
+    public void PlaceItem(Item item, InventorySlotScript currentSlotScript) {
+        PlaceableItem Offsets = currentSlotScript.HeldItem.GetComponent<PlaceableItem>();
+        Vector3 newPosition = new Vector3(Player.position.x, 
+            Player.position.y + Offsets.VerticalOffset, Player.position.z) + Player.forward * Offsets.ObjectWidth;
+        currentSlotScript.HeldItem.transform.position = newPosition;
+        Debug.Log("Placing combined item at " + newPosition);
+        Items[currentSlotScript.slotNumber] = null;
+        currentSlotScript.ItemImage.enabled = false;
+        currentSlotScript.GetComponent<InventorySlotScript>().ItemRemoveButton.interactable = false;
+        item.gameObject.SetActive(true);
     }
 
     public void CopyToCraftingMenu(int slot) {

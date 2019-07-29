@@ -55,7 +55,7 @@ public class ItemPickup : MonoBehaviour {
         item = itemObject.GetComponent<Item>();
         if (_itemInRange) {
             Debug.Log(item + " is in range for pickup.");
-            pickUpItemText.text = "Press " + itemPickupKey + "\nto pick up " + item.ItemName;
+            pickUpItemText.text = "Druk op " + itemPickupKey + " om " + item.ItemName + "\nop te pakken";
             pickUpItemText.enabled = true;
         } else {
             Debug.Log(item + " is no longer in range.");
@@ -67,7 +67,6 @@ public class ItemPickup : MonoBehaviour {
     }
 
     private void PickUp(Item pickup) {
-
         for (int i = 0; i < Inventory.Items.Length; i++) {
             // Check if inventory is full
             if (i == Inventory.Items.Length -1 && Inventory.Items[i] != null) {
